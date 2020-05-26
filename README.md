@@ -13,7 +13,7 @@ In the root directory of the repo, hit the following command <br>
 ## Team
 1. Kinshuk Kashyap - 181CO261 (Team Lead)
 2. Vivesh Yadav - 181CO259
-3. Suddhatm Chaudhary -181CO251
+3. Shuddhatm Choudhary -181CO251
 4. Suhas K S - 181CO253
 5. Vignesh Srinivasan - 181CO258
 6. Tarun S Anur - 181CO255
