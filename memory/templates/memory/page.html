@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+
+
+<style>
+
+</style>
+<body style="padding:10px;">
+  <div class="panel panel-primary">
+      <div class="panel-heading"><h1 style="text-alig
+        var text = JSON.strn:center;">
+        Page Replacement Algorithms
+      </h1></div>
+  <br>
+  <div class="panel-body">
+  <div id="input">
+    <h4>Requests:</h4>
+     <input type="text" class="requests form-control" placeholder="Enter requests"></input>
+     <h4>Cache Size:</h4>
+      <input type="text" class="size form-control" id="csize" placeholder="Enter cache size"></input>
+    </div>
+
+  </div>
+  <div class="panel-footer" style="height:50px;">
+    <button style="float:right;" id="submit" class="btn btn-primary">Submit</button>
+  </div>
+</div>
+  <div>
+
+  </div>
+
+  <ul class="nav nav-tabs">
+    <li class="active"><a data-toggle="tab" href="#1">FIFO</a></li>
+    <li><a data-toggle="tab" href="#2">LRU</a></li>
+    <li><a data-toggle="tab" href="#3">OPT</a></li>
+  </ul>
+
+  <div class="tab-content">
+    <div id="1" class="tab-pane fade in active">
+      <h1>FIRST IN FIRST OUT</h1>
+      <button class="proceed hidden btn btn-primary" id="proceed1">Proceed</button><br><br>
+      <div id="fifo">
+
+      </div>
+      <div class="answer" id="answers1"></div>
+    </div>
+    <div id="2" class="tab-pane fade">
+      <h1>LEAST RECENTLY USED</h1>
+      <button class="proceed hidden btn btn-primary" id="proceed2">Proceed</button><br><br>
+      <div id="lru">
+      </div>
+      <div class="answer" id="answers2"></div>
+    </div>
+    <div id="3" class="tab-pane fade">
+      <h1>OPTIMUM</h1>
+      <button class="proceed hidden btn btn-primary" id="proceed3">Proceed</button><br><br>
+      <div id="opt">
+      </div>
+      <div class="answer" id="answers3"></div>
+    </div>
+  </div>
+</body>
+</html>
+
+<script>
+
+
+var count1= 0;
+var count2= 0;
+var count3= 0;
+var cacheSize = 3;
+var data = [1,3,2,1,2,4,5,2]
+var output = {'states': [{'status': 'M', 'cache': '1 -1 -1'}, {'status': 'M', 'cache': '1 3 -1'},{'status': 'M', 'cache': '1 3 2'}, {'status': 'H', 'cache': '1 3 2'},{'status': 'H', 'cache': '1 3 2'}, {'status': 'M', 'cache': '4 3 2'}, {'status': 'M', 'cache': '4 5 2'}, {'status': 'H', 'cache': '4 5 2'}],  'hit-ratio': 0.375, 'hits': 3, 'miss': 5};
+var states = output["states"];
+var hits = [output["hits"],output["hits"],output["hits"]];
+var misses = [output["miss"],output["miss"],output["miss"]];
+var hitratio = [output["hit-ratio"],output["hit-ratio"],output["hit-ratio"]];
+
+
+$("#submit").click(function(){
+    data = $(".requests").val().trim().split(" ");
+    cacheSize = parseInt($(".size").val().trim());
+    count1 = count2 = count3 = 0;
+    $("#fifo,#lru,#opt,.answer").empty();
+    // $("#lru").empty();
+    // $("#opt").empty();
+    $('#fifo,#lru,#opt').css('height',(data.length/8)*180+'px');
+    var reqs = JSON.stringify(data.map(Number));
+    var csize = JSON.stringify(cacheSize);
+    $.post('/memory/fifo/',{requests: reqs, size: csize}, function(result){
+
+      output = result;
+
+      hits = [output['fifo']["hits"],output['lru']["hits"],output['opt']["hits"]];
+      misses = [output['fifo']["miss"],output['lru']["miss"],output['opt']["miss"]];
+      hitratio = [output['fifo']["hit-ratio"],output['lru']["hit-ratio"],output['opt']["hit-ratio"]];
+      $(".proceed").removeClass("hidden");
+    });
+
+
+
+});
+
+function drawCard(idname,count){
+var i,j;
+var input = document.getElementById("input");
+var result = document.getElementById("idname");
+if(count ==0){
+var card = document.createElement("div");
+card.setAttribute("class", "card");
+
+var div = document.createElement("div");
+div.setAttribute("class", "request");
+div.innerHTML = "Request :";
+card.appendChild(div);
+for(j=0;j<cacheSize;++j){
+  var div1 = document.createElement("div");
+  div1.innerHTML = "Cache[" + j + "]";
+  card.appendChild(div1);
+}
+
+var div0 = document.createElement("div");
+div0.setAttribute("class", "hitmiss status");
+div0.innerHTML = "Status : ";
+card.appendChild(div0);
+
+$(card).hide().appendTo("#"+idname).fadeIn(1000);
+}
+  i = count;
+  var card = document.createElement("div");
+  card.setAttribute("class", "card");
+  var tempCache = output[idname]["states"][i]["cache"].split(" ");
+
+  var div = document.createElement("div");
+  div.setAttribute("class", "request");
+  div.innerHTML = data[i];
+  card.appendChild(div);
+  for(j=0;j<cacheSize;++j){
+    var div1 = document.createElement("div");
+    if(tempCache[j] == "-1") div1.innerHTML = "-"
+    else div1.innerHTML = tempCache[j];
+    card.appendChild(div1);
+  }
+
+  var div0 = document.createElement("div");
+  div0.setAttribute("class", "hitmiss");
+  if(output[idname]["states"][i]["status"] == 'H'){
+    div0.innerHTML = "&#x2714;";
+    div0.className +=" hit";
+  }
+  else{
+    div0.innerHTML = "&#x2716;";
+    div0.className +=" miss";
+  }
+  card.appendChild(div0);
+
+  $(card).hide().appendTo("#"+idname).fadeIn(1000);
+  //result.appendChild(card);
+}
+
+function cleanup(no){
+  $("#proceed"+no).addClass("hidden");
+
+   div0 = document.getElementById("answers"+no);
+   div0.innerHTML = "<br><h2 style='text-align: center;'>HITS: "+ hits[no-1] + ",   MISSES: "+misses[no -1] + ",   HIT RATIO: "+hitratio[no-1]+"</h2>";
+   div0.setAttribute("text-align","center");
+   br = document.createElement("br");
+   $(div0).hide().fadeIn(1000);
+
+}
+$("#proceed1").click(function(){
+  drawCard("fifo",count1);
+  count1++;
+  if(count1 == data.length){
+    cleanup(1);
+  }
+
+});
+
+$("#proceed2").click(function(){
+  drawCard("lru",count2);
+  count2++;
+  if(count2 == data.length){
+    cleanup(2);
+  }
+
+});
+
+$("#proceed3").click(function(){
+  drawCard("opt",count3);
+  count3++;
+  if(count3 == data.length){
+    cleanup(3);
+  }
+});
+
+</script>
+<style>
+.tab-content,.nav nav-tabs{
+  padding:30px;
+}
+
+#result{
+  margin-top: 25px;
+}
+
+#input{
+  margin: 10px;
+}
+.card{
+  position: relative;
+  border: 1px solid black;
+  float: left;
+  text-align: center;
+  width:100px;
+  margin-left: 10px;
+  margin-bottom: 20px;
+}
+.request{
+  border-bottom:  1px solid black;
+  margin-bottom: 10px;
+}
+
+.hitmiss{
+  margin-top: 10px;
+  border-top: 1px solid black;
+  color: white;
+}
+.hit{
+  background-color: green;
+}
+.miss{
+  background-color: red;
+}
+
+.status{
+  color: black;
+}
+.hidden{
+  display:none;
+}
+
+#answers{
+  display:block;
+  padding: 30px;
+}
+.ans{
+  text-transform: capitalize;
+}
+.nav.nav-tabs{
+  margin-left:10px;
+}
+h1{
+  text-align: center;
+}
+#csize{
+  width: 300px;
+  position: relative;
+  float:left;
+}
+#submit{
+  margin-left: 10px;
+}
+.proceed{
+  float: right;
+  margin-right: 10px;
+}
+</style>
