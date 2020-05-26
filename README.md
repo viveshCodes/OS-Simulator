@@ -20,5 +20,6 @@ In the root directory of the repo, hit the following command <br>
 7. Somesh Kartikeya - 181CO252
 8. Yerramaddu Jahnavi - 181CO260
 9. Vemula Venkata Sair Tarun - 181CO257
-10. V. Yashwant Reddy - 181CO256
-11 . Sumeet Bisen -181CO254
+10. V. Yashwant Reddy - 181CO256 
+11. Sumeet Bisen -181CO254
+
