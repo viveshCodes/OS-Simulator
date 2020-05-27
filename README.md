@@ -1,22 +1,17 @@
-# OS-Simulator for CS255
+# OS Simulator:
 
-## Requirements
-nodejs
-npm
+## Introduction:
+This is an application for simulating the basic components of a modern operating system. This is a project done under the course Operating Systems Lab (CS252) taught by Prof. Shashidhar. G. Koolagudi and Prof. Annappa.
+
+## Requirements:
+- Node.js
+- npm
 
 ## Installation guide
-Clone the repo <br>
-``` git clone https://github.com/viveshCodes/OS-Simulator.git ```
 
-## Install dependencies
-```npm install```
-
-## Running server 
-In the root directory of the repo, hit the following command <br>
-```npm start```
-
-Navigate to `localhost:8000` to access the application
-
+1. Run `npm install` in the root directory of the project(OS-Simulator) to install dependencies for the node application.
+2. Run `npm start` in the root directory to run the server.
+3. Navigate to `localhost:8000` on a Web Browser to use the application.
 
 ## Team
 1. Kinshuk Kashyap - 181CO261 (Team Lead)
