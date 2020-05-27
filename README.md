@@ -1,14 +1,22 @@
 # OS-Simulator for CS255
 
 ## Requirements
-Django 2.x
+nodejs
+npm
 
 ## Installation guide
 Clone the repo <br>
 ``` git clone https://github.com/viveshCodes/OS-Simulator.git ```
+
+## Install dependencies
+```npm install```
+
 ## Running server 
 In the root directory of the repo, hit the following command <br>
-``` python manage.py runserver ```
+```npm start```
+
+Navigate to `localhost:8000` to access the application
+
 
 ## Team
 1. Kinshuk Kashyap - 181CO261 (Team Lead)
