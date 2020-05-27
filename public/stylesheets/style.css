@@ -8,7 +8,7 @@ body {
 	margin: 0;
 	padding: 0;
 	overflow: hidden; /* not to allow the window to scroll */
-	background-image: url('/images/windows10_wall.jpg');
+	background-image: url('/images/xerus_wallpaper.jpg');
 	background-size: cover;
 	background-attachment: fixed;
 	background-position: center;
