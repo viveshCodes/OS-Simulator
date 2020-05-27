@@ -1,7 +1,7 @@
 # OS Simulator:
 
 ## Introduction:
-This is an application for simulating the basic components of a modern operating system. This is a project done under the course Operating Systems Lab (CS252) taught by Prof. Shashidhar. G. Koolagudi and Prof. Annappa.
+This is an application for simulating the basic components of a modern operating system. This is a project done under the course Operating Systems(CS252) taught by Prof. Shashidhar. G. Koolagudi and Prof. Annappa.
 
 ## Requirements:
 - Node.js
